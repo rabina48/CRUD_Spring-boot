@@ -5,6 +5,8 @@ import com.f1soft.springdemo.responses.Response;
 import com.f1soft.springdemo.user.UserProfile;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
+
 @Service
 public interface UserServices {
     BaseResponse addUser(UserProfile user);
@@ -14,4 +16,6 @@ public interface UserServices {
     Response deleteById(int userId);
 
     BaseResponse getAllUser();
+
+    BaseResponse getUserById(int id);
 }

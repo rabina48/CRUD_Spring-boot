@@ -41,5 +41,14 @@ public class UserController {
     @GetMapping(" ")
     public BaseResponse getAllUser() {
         return userServices.getAllUser();
+
     }
+
+
+    @GetMapping("/{id}")
+    public BaseResponse getUserById(@PathVariable int id) {
+        return userServices.getUserById(id);
+    }
+
 }
+
