@@ -4,6 +4,8 @@ import com.f1soft.springdemo.responses.BaseResponse;
 import com.f1soft.springdemo.responses.Response;
 import com.f1soft.springdemo.services.UserServices;
 import com.f1soft.springdemo.user.UserProfile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("user")
 public class UserController {
+
+
 
     @Autowired
     private UserServices userServices;
@@ -28,27 +32,26 @@ public class UserController {
         return new ResponseEntity<>(userProfileBaseResponse, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{userId}")
+    @PutMapping("{userId}")
     public BaseResponse update(@PathVariable int userId, @RequestBody UserProfile userProfile) {
         return userServices.update(userId, userProfile);
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping("{userId}")
     public Response delete(@PathVariable int userId) {
         return userServices.deleteById(userId);
     }
 
     @GetMapping(" ")
     public BaseResponse getAllUser() {
-        return userServices.getAllUser();
-
-    }
+        return userServices.getAllUser(); }
 
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public BaseResponse getUserById(@PathVariable int id) {
         return userServices.getUserById(id);
     }
+
 
 }
 
