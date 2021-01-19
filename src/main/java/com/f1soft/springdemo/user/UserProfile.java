@@ -1,5 +1,7 @@
 package com.f1soft.springdemo.user;
 import lombok.Data;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import sun.security.util.Password;
 
 import javax.persistence.*;
