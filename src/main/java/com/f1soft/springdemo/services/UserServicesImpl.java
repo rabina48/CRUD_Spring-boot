@@ -29,12 +29,12 @@ public class UserServicesImpl implements UserServices {
     public BaseResponse addUser(UserProfile user) {
         UserProfile data = userRepository.save(user);
 
-        try {
-            int a = 12 / 0;
-
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
+//        try {
+//            int a = 12 / 0;
+//
+//        } catch (Exception e) {
+//            throw new RuntimeException(e.getMessage());
+//        }
 
         return new BaseResponse(HttpStatus.CREATED.value(), true, "Added Successfully!", data);
     }
