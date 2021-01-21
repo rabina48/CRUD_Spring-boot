@@ -5,9 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @author Prajwol hada
- */
+//
 
 @RestController
 
@@ -19,4 +17,7 @@ public class LoggerController {
         log.info("inside the executeLogger method");
         return "Hello World Logger Interceptor";
     }
+
+
+//
 }

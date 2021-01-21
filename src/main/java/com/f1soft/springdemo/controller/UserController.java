@@ -3,9 +3,9 @@ package com.f1soft.springdemo.controller;
 import com.f1soft.springdemo.responses.BaseResponse;
 import com.f1soft.springdemo.responses.Response;
 import com.f1soft.springdemo.services.UserServices;
+import com.f1soft.springdemo.user.AppointmentProfile;
+import com.f1soft.springdemo.user.UserDTO;
 import com.f1soft.springdemo.user.UserProfile;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,8 +26,8 @@ public class UserController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public ResponseEntity<?> addNewUser(@RequestBody UserProfile userProfile) {
-         BaseResponse userProfileBaseResponse = userServices.addUser(userProfile);
+    public ResponseEntity<?> addNewUser(@RequestBody UserDTO userDTO) throws InterruptedException {
+         BaseResponse userProfileBaseResponse = userServices.addUser(userDTO);
         //return ResponseEntity.ok(userProfileBaseResponse);
         return new ResponseEntity<>(userProfileBaseResponse, HttpStatus.CREATED);
     }
@@ -51,6 +51,11 @@ public class UserController {
     public BaseResponse getUserById(@PathVariable int id) {
         return userServices.getUserById(id);
     }
+
+//===
+
+
+
 
 
 }
