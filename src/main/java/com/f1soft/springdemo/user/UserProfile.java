@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import sun.security.util.Password;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,5 +21,17 @@ public class UserProfile {
     private String email;
     private long phone;
     private String  password;
+
+
+//    @JoinTable(name = "user_appointment",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//    inverseJoinColumns = @JoinColumn(name = "appointment_id"))
+//
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+
+
+//   private List<AppointmentProfile> profile;
+
+
 
 }
