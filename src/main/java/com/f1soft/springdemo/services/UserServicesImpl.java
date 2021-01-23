@@ -57,14 +57,14 @@ public class UserServicesImpl implements UserServices {
 
         appointmentRepository.save(appointmentProfile);
 
-        Thread.sleep(20000);
+        //Thread.sleep(20000);
 
 
-       // if (userDTO.getProfile().getAppointNo().equals(100)) {
+       if (userDTO.getProfile().getAppointNo() >= 100) {
             throw new IndexOutOfBoundsException("Please visit tommorrow");
-       // } else {
+        } else {
 
-           // return new BaseResponse(HttpStatus.CREATED.value(), true, "Added Successfully!",userRepository.save(userProfile));
+            return new BaseResponse(HttpStatus.CREATED.value(), true, "Added Successfully!",userRepository.save(userProfile));
         }
 
 
@@ -75,9 +75,9 @@ public class UserServicesImpl implements UserServices {
 //            throw new RuntimeException(e.getMessage());
 //        }
 
-      //  return new BaseResponse(HttpStatus.CREATED.value(), true, "Added Successfully!", userRepository.save(userProfile));
+      // return new BaseResponse(HttpStatus.CREATED.value(), true, "Added Successfully!", userRepository.save(userProfile));
 
-    //}
+    }
 
     @Override
     public BaseResponse update(int userId, UserProfile userProfile) {
