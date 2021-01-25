@@ -3,9 +3,11 @@ package com.f1soft.springdemo.controller;
 import com.f1soft.springdemo.responses.BaseResponse;
 import com.f1soft.springdemo.responses.Response;
 import com.f1soft.springdemo.services.UserServices;
+import com.f1soft.springdemo.services.WelcomeServices;
 import com.f1soft.springdemo.user.AppointmentProfile;
 import com.f1soft.springdemo.user.UserDTO;
 import com.f1soft.springdemo.user.UserProfile;
+import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +22,9 @@ public class UserController {
 
     @Autowired
     private UserServices userServices;
+
+    @Autowired
+    private WelcomeServices services;
 
     //        @PostMapping("/add")
     @PostMapping(path = "add",
@@ -53,6 +58,14 @@ public class UserController {
     }
 
 //===
+
+
+
+
+    @GetMapping("welcome")
+    public  String getWelcomeMessage(){
+        return services.getWelcomeMessage();
+    }
 
 
 
