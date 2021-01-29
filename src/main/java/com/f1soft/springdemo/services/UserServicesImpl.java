@@ -54,9 +54,7 @@ public class UserServicesImpl implements UserServices {
         AppointmentProfile appointmentProfile = new AppointmentProfile();
 
         appointmentProfile.setDatee(new Date());
-
         appointmentProfile.setAppointNo(userDTO.getProfile().getAppointNo());
-
         appointmentRepository.save(appointmentProfile);
 
         //Thread.sleep(20000);
@@ -141,4 +139,6 @@ public class UserServicesImpl implements UserServices {
 
 
     }
+
+
 }

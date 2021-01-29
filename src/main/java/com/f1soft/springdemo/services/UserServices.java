@@ -20,4 +20,5 @@ public interface UserServices {
     BaseResponse getAllUser();
 
     BaseResponse getUserById(int id);
+
 }

@@ -2,19 +2,25 @@ package com.f1soft.springdemo.controller;
 
 import com.f1soft.springdemo.responses.BaseResponse;
 import com.f1soft.springdemo.responses.Response;
+import com.f1soft.springdemo.services.Notice;
 import com.f1soft.springdemo.services.UserServices;
 import com.f1soft.springdemo.services.WelcomeServices;
 import com.f1soft.springdemo.user.AppointmentProfile;
 import com.f1soft.springdemo.user.UserDTO;
 import com.f1soft.springdemo.user.UserProfile;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
+@ApiOperation(value = "/user", tags = " CRUD Controller")
 @RequestMapping("user")
 public class UserController {
 
@@ -26,7 +32,15 @@ public class UserController {
     @Autowired
     private WelcomeServices services;
 
+
+    @Autowired(required = false)
+    @Qualifier("AppointmentNoticeServices")
+    private Notice notice;
+
+
+
     //        @PostMapping("/add")
+
     @PostMapping(path = "add",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,6 +67,7 @@ public class UserController {
 
 
     @GetMapping("{id}")
+    @ApiOperation(value = "Get All Students In List", response = Iterable.class)
     public BaseResponse getUserById(@PathVariable int id) {
         return userServices.getUserById(id);
     }
@@ -68,7 +83,10 @@ public class UserController {
     }
 
 
-
+     @GetMapping("notice")
+     public String getNotice(){
+        return  notice.getNotice();
+     }
 
 
 }
