@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +38,9 @@ public class UserServicesImpl implements UserServices {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     @Transactional(rollbackFor = {IndexOutOfBoundsException.class})
     public BaseResponse addUser(UserDTO userDTO) throws InterruptedException {
@@ -47,7 +51,10 @@ public class UserServicesImpl implements UserServices {
         userProfile.setFirstName(userDTO.getFirstName());
         userProfile.setLastName(userDTO.getLastName());
         userProfile.setPhone(userDTO.getPhone());
-        userProfile.setPassword(userDTO.getPassword());
+        String password = userDTO.getPassword();
+        String encodedPassword = passwordEncoder.encode(password);
+        userProfile.setPassword(encodedPassword);
+
 
         UserProfile dataa = userRepository.save(userProfile);
 
@@ -60,11 +67,13 @@ public class UserServicesImpl implements UserServices {
         //Thread.sleep(20000);
 
 
-       if (userDTO.getProfile().getAppointNo() >= 100) {
+        if (userDTO.getProfile().getAppointNo() >= 100) {
             throw new IndexOutOfBoundsException("Please visit tommorrow");
-        } else {
+        }
+        else  {
 
-            return new BaseResponse(HttpStatus.CREATED.value(), true, "Added Successfully!",userRepository.save(userProfile));
+
+            return new BaseResponse(HttpStatus.CREATED.value(), true, "Added Successfully!", userRepository.save(userProfile));
         }
 
 
@@ -75,7 +84,7 @@ public class UserServicesImpl implements UserServices {
 //            throw new RuntimeException(e.getMessage());
 //        }
 
-      // return new BaseResponse(HttpStatus.CREATED.value(), true, "Added Successfully!", userRepository.save(userProfile));
+        // return new BaseResponse(HttpStatus.CREATED.value(), true, "Added Successfully!", userRepository.save(userProfile));
 
     }
 
