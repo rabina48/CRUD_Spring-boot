@@ -5,12 +5,15 @@ import com.f1soft.springdemo.responses.Response;
 import com.f1soft.springdemo.services.AppointmentServices;
 import com.f1soft.springdemo.user.AppointmentProfile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Rabina
  */
-
+@Configuration
 @RestController
 @RequestMapping("app")
 public class AppointmentController {
@@ -25,10 +28,15 @@ public class AppointmentController {
         return appointmentServices.updateAppointment(appId, profile);
     }
 
-    @DeleteMapping("{appId}")
-    public Response deleteAppointment(@PathVariable int appId) {
+    @DeleteMapping(" ")
+    public Response deleteAppointment() {
+        return appointmentServices.deleteAppointment();
+    }
 
-        return appointmentServices.deleteAppointment(appId);
+    @DeleteMapping("{appId}")
+    public Response deleteAppointmentById(@PathVariable int appId) {
+
+        return appointmentServices.deleteAppointmentById(appId);
     }
 
     @GetMapping("all")

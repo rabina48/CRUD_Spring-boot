@@ -7,24 +7,23 @@ import com.f1soft.springdemo.repository.UserRepository;
 import com.f1soft.springdemo.responses.BaseResponse;
 import com.f1soft.springdemo.responses.Response;
 import com.f1soft.springdemo.user.AppointmentProfile;
-import com.f1soft.springdemo.user.UserDTO;
+import com.f1soft.springdemo.user.dto.UserDTO;
 import com.f1soft.springdemo.user.UserProfile;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 
 @Service
-
 public class UserServicesImpl implements UserServices {
 
 
@@ -51,6 +50,7 @@ public class UserServicesImpl implements UserServices {
         userProfile.setFirstName(userDTO.getFirstName());
         userProfile.setLastName(userDTO.getLastName());
         userProfile.setPhone(userDTO.getPhone());
+
         String password = userDTO.getPassword();
         String encodedPassword = passwordEncoder.encode(password);
         userProfile.setPassword(encodedPassword);
@@ -63,6 +63,25 @@ public class UserServicesImpl implements UserServices {
         appointmentProfile.setDatee(new Date());
         appointmentProfile.setAppointNo(userDTO.getProfile().getAppointNo());
         appointmentRepository.save(appointmentProfile);
+
+
+        Optional<UserProfile> data = userRepository.findById(userProfile.getId());
+        if (data == null) {
+            return new BaseResponse(400, false, "User does not exist!", null);
+        }
+
+        UserProfile user = data.get();
+        user.setId(user.getId());
+
+        List<Integer> roleId = userDTO.getRoleId();
+
+        if (roleId != null && !roleId.isEmpty()) {
+
+            user.setRoles(user.getRoles());
+
+            return new BaseResponse(200, true, "Added Successfully", userRepository.save(user));
+
+        }
 
         //Thread.sleep(20000);
 
@@ -112,11 +131,14 @@ public class UserServicesImpl implements UserServices {
 
     }
 
+
+
     @Override
     public Response deleteById(int userId) {
 
+        System.out.println("lollll");
 
-        Optional<UserProfile> productDb = this.userRepository.findById(userId);
+        Optional<UserProfile> productDb = userRepository.findById(userId);
         if (productDb.isPresent()) {
             userRepository.deleteById(userId);
 
@@ -128,6 +150,7 @@ public class UserServicesImpl implements UserServices {
     }
 
     @Override
+
     @TrackExecutionTime
     public BaseResponse getAllUser() {
         return new BaseResponse(200, true, "Successfully!", userRepository.findAll());
@@ -148,6 +171,19 @@ public class UserServicesImpl implements UserServices {
 
 
     }
+//
+//    @Override
+//    public Response loginData(Login login) {
+//
+//        Login login1 = new Login();
+//
+//        if (login1.setUsername("rabina") && login1.setPassword("123")){
+//            return  new BaseResponse(200,true,"success");
+//        }else{
+//            return  new BaseResponse(401,false,"UNsuccess");
+////        }
+//
+//    }
 
 
 }

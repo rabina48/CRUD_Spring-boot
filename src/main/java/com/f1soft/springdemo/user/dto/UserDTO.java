@@ -1,5 +1,6 @@
-package com.f1soft.springdemo.user;
+package com.f1soft.springdemo.user.dto;
 
+import com.f1soft.springdemo.user.Role;
 import lombok.Data;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class UserDTO {
     private String email;
     private Long phone;
     private String password;
+    private  List<Integer> roleId;
 
 
     private AppointmentDTO profile;
