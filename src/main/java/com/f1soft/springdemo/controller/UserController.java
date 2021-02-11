@@ -5,12 +5,9 @@ import com.f1soft.springdemo.responses.Response;
 import com.f1soft.springdemo.services.Notice;
 import com.f1soft.springdemo.services.UserServices;
 import com.f1soft.springdemo.services.WelcomeServices;
-import com.f1soft.springdemo.user.AppointmentProfile;
-import com.f1soft.springdemo.user.UserDTO;
+import com.f1soft.springdemo.user.dto.UserDTO;
 import com.f1soft.springdemo.user.UserProfile;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -89,6 +86,11 @@ public class UserController {
      }
 
 
-}
+
+
+
+     }
+
+
 
 ///
