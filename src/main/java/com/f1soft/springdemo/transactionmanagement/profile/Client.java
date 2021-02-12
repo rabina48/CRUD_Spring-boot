@@ -14,7 +14,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private Long openingBalance;
+    private Double balance;
     private boolean status;
 
 

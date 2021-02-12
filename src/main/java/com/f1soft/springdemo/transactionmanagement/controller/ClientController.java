@@ -1,37 +1,42 @@
 package com.f1soft.springdemo.transactionmanagement.controller;
 
 
-import com.f1soft.springdemo.responses.BaseResponse;
-import com.f1soft.springdemo.transactionmanagement.profile.Client;
-import com.f1soft.springdemo.transactionmanagement.repository.ClientRepository;
-import com.f1soft.springdemo.transactionmanagement.services.ClientServices;
+import com.f1soft.springdemo.responses.Response;
+import com.f1soft.springdemo.transactionmanagement.profile.ClientRequestDTO;
+import com.f1soft.springdemo.transactionmanagement.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("client")
+@RequestMapping("transaction")
 public class ClientController {
 
-    @Autowired
-    private ClientRepository clientRepository;
 
     @Autowired
-    private ClientServices clientServices;
+    private ClientService clientService;
 
-    @GetMapping("all")
-    public BaseResponse getAllClient(){
-        return  new BaseResponse(200, true, "success",clientRepository.findAll());
+    @PutMapping("deduct")
+    private Response deductBalance(@RequestBody ClientRequestDTO request) throws Exception {
+        return  clientService.deductBalance(request.getClientId(), request.getAmount());
+
     }
 
     @PutMapping("add")
-    public BaseResponse addClient(Client client){
-        return  clientServices.addClient(client);
+    private Response addBalance(@RequestBody ClientRequestDTO request){
+         return  clientService.addBalance(request.getClientId(), request.getAmount());
+
     }
-
-
-
-
 }
+
+
+// check the transaction -> available or not
+// Transaction -> multiple as well -> use lock here->
+//client id - transaction (lock) -> if we withdraw then the system failure ->if exception (Rollback)
+// client id 2 + transaction (lock)-> success then
+// commit
+//-> lock free
+
+//with draw utils (method: account check blnc,  withdarw money should be deduct
+// Deposite utils ( method: add money, total amt check
+
+// log log4j -> aspect create -> call before and after transaction method
