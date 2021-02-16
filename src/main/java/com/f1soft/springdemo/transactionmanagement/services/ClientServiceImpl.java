@@ -25,11 +25,11 @@ public class ClientServiceImpl implements ClientService {
     @Override
     @Transactional
     public Response deductBalance( Integer clientId, Double transactionAmount) throws Exception {
-
+        System.out.println(" call for  deduct clientId =  " +clientId + "Transaction amount = " +transactionAmount);
 //
       Client client =  entityManager.find(Client.class, clientId , LockModeType.PESSIMISTIC_WRITE);
 
-      if(client != null && client.getBalance()>100){
+      if(client != null ){
 
           Double openingBalance = client.getBalance();
           Double closingBalance = openingBalance - transactionAmount;
@@ -57,9 +57,11 @@ public class ClientServiceImpl implements ClientService {
     @Override
     @Transactional
     public Response addBalance(Integer clientId, Double transactionAmount) {
+        System.out.println(" call for  add clientId =  " +clientId + "Transaction amount = " +transactionAmount);
+//
         Client client =  entityManager.find(Client.class, clientId , LockModeType.PESSIMISTIC_WRITE);
 
-        if(client != null && client.getBalance()>100){
+        if(client != null){
 
             Double openingBalance = client.getBalance();
             Double closingBalance = openingBalance + transactionAmount;
